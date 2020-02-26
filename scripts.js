@@ -6,8 +6,8 @@ canvas.height = window.innerHeight*0.75;
 var context = canvas.getContext('2d')
 
 /// set parameters
-var cellW = 40;
-var cellH = 40;
+var cellW = 60;
+var cellH = 60;
 var rows = Math.floor(canvas.width/cellW);
 var columns = Math.floor(canvas.height/cellH);
 
@@ -42,7 +42,7 @@ class Cell {
   }
 
   draw(x, y) {
-    context.strokeStyle = '#2734cf'
+    context.strokeStyle = '#2b3cff'
     for (let i = 0; i < 4; ++i) {
       const next_x = x + Dirs[(i + 1) % 4][0];
       const next_y = y + Dirs[(i + 1) % 4][1];
