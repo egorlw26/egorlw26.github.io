@@ -1,16 +1,15 @@
 var canvas = document.getElementById('canvas');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-var offsetForMaze = 0;
+canvas.width = window.innerWidth*0.75;
+canvas.height = window.innerHeight*0.75;
 
 var context = canvas.getContext('2d')
 
 /// set parameters
-var rows = 15;
-var columns = 15;
-var w = canvas.width / rows;
-var h = canvas.height / columns;
+var cellW = 40;
+var cellH = 40;
+var rows = Math.floor(canvas.width/cellW);
+var columns = Math.floor(canvas.height/cellH);
 
 //simple way to draw line
 function draw_line(startX, startY, endX, endY){
@@ -48,8 +47,8 @@ class Cell {
       const next_x = x + Dirs[(i + 1) % 4][0];
       const next_y = y + Dirs[(i + 1) % 4][1];
       if (this.walls[i]) {
-        draw_line(offsetForMaze + x * w, offsetForMaze + y * h,
-          offsetForMaze + next_x * w, offsetForMaze + next_y * h);
+        draw_line(x * cellW, y * cellH,
+          next_x * cellW, next_y * cellH);
       }
       x = next_x;
       y = next_y;
@@ -115,7 +114,6 @@ class Maze {
   }
 
   draw() {
-    //context.rect(0, 0, this.width * w, this.height * h);
     for (let y = 0; y < this.height; ++y)
       for (let x = 0; x < this.width; ++x)
         this.maze[y][x].draw(x, y);
@@ -170,7 +168,7 @@ class Player{
         return;
       }
 
-      const dir_id = available_dirs[0];
+      const dir_id = randomChoice(available_dirs);
       const next_x = x + Dirs[dir_id][0];
       const next_y = y + Dirs[dir_id][1];
       this.path.push([next_x, next_y]);
@@ -181,8 +179,8 @@ class Player{
 function drawPlayerPath(path){
   context.strokeStyle = 'red';
   for(var i = 1; i<path.length; i++)
-  draw_line(path[i-1][0]*w + w/2, path[i-1][1]*h + h/2, 
-    path[i][0]*w + w/2, path[i][1]*h + h/2);
+  draw_line(path[i-1][0]*cellW + cellW/2, path[i-1][1]*cellH + cellH/2, 
+    path[i][0]*cellW + cellW/2, path[i][1]*cellH + cellH/2);
 }
 
 function drawEverything(maze, player){
@@ -205,8 +203,9 @@ var targetY;
 
 function onMouseClick(event){
   player.dfsPathfinderStart();
-  targetX = Math.floor(event.pageX/w);
-  targetY = Math.floor(event.pageY/h);
+  var rect = canvas.getBoundingClientRect();
+  targetX = Math.floor((event.pageX - rect.left)/cellW);
+  targetY = Math.floor((event.pageY - rect.top)/cellH);
   console.log(targetX, targetY);
   update();
 }
