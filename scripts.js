@@ -2,6 +2,7 @@ var canvas = document.getElementById('canvas');
 
 canvas.width = window.innerWidth*0.75;
 canvas.height = window.innerHeight*0.75;
+var canvasOffset = 1;
 
 var context = canvas.getContext('2d')
 
@@ -47,8 +48,8 @@ class Cell {
       const next_x = x + Dirs[(i + 1) % 4][0];
       const next_y = y + Dirs[(i + 1) % 4][1];
       if (this.walls[i]) {
-        draw_line(x * cellW, y * cellH,
-          next_x * cellW, next_y * cellH);
+        draw_line(canvasOffset + x * cellW, canvasOffset + y * cellH,
+          canvasOffset + next_x * cellW, canvasOffset + next_y * cellH);
       }
       x = next_x;
       y = next_y;
@@ -176,11 +177,82 @@ class Player{
   }
 }
 
+class dfsPathfinder{
+	constructor(maze, start, target){
+    	this.start = start;
+    	this.target = target;
+    	this.maze = maze;
+    	this.finish = false;
+		this.visited = [];
+    	this.pathMatrix =[];
+    	for(var i = 0; i<rows; i++){
+      		var visitedRow = [];
+      		var pathRow = [];
+      		for(var j = 0; j<columns; j++){
+        		visitedRow.push(false);
+        		pathRow.push(0);
+      		}
+      	this.visited.push(visitedRow);
+      	this.pathMatrix.push(pathRow);
+      	this.pathMatrix[start[0]][start[1]] = 1;
+      	this.path = [
+      		[start[0], start[1]
+      		]];
+    	}
+	}
+
+	getSearchStep(){
+	      if(this.path.length > 0 && !this.finish) {
+	      const curr_pos = this.path[this.path.length -1];
+	      const x = curr_pos[0];
+	      const y = curr_pos[1];
+	      this.visited[y][x] = true;
+
+	      /// We found our target!
+	      if(x === this.target[0] && y === this.target[1]){
+	        this.finish = true;
+	        return;
+	      }
+
+	      var available_dirs = []
+	      for(var i = 0; i<4; i++){
+	        const cell_x = x + Dirs[i][0];
+	        const cell_y = y + Dirs[i][1];
+	        if(this.maze.isInGrid(cell_x, cell_y) && !this.visited[cell_y][cell_x] && !this.maze.maze[y][x].walls[i])
+	          available_dirs.push(i);
+	      }
+
+	      if (available_dirs.length == 0) {
+	      	this.pathMatrix[x][y] = 0;
+	        this.path.pop();
+	        return;
+	      }
+
+	      const dir_id = randomChoice(available_dirs);
+	      const next_x = x + Dirs[dir_id][0];
+	      const next_y = y + Dirs[dir_id][1];
+	      this.path.push([next_x, next_y]);
+	      this.pathMatrix[next_x][next_y] = 1;
+	    }
+	}
+}
+
+function drawPathState(pathMatrix){
+	for(var i = 0; i < rows; i++)
+		for(var j = 0; j< columns; j++)
+			if(pathMatrix[i][j]===1)
+			{
+				context.rect(i*cellW + cellW/4, j*cellH + cellH/4, 
+					cellW/2, cellH/2);
+				context.fill();
+			}
+}
+
 function drawPlayerPath(path){
-  context.strokeStyle = 'red';
-  for(var i = 1; i<path.length; i++)
-  draw_line(path[i-1][0]*cellW + cellW/2, path[i-1][1]*cellH + cellH/2, 
-    path[i][0]*cellW + cellW/2, path[i][1]*cellH + cellH/2);
+	context.strokeStyle = 'red';
+  	for(var i = 1; i<path.length; i++)
+  		draw_line(path[i-1][0]*cellW + cellW/2, path[i-1][1]*cellH + cellH/2, 
+    		path[i][0]*cellW + cellW/2, path[i][1]*cellH + cellH/2);
 }
 
 function drawEverything(maze, player){
@@ -206,7 +278,7 @@ function onMouseClick(event){
   var rect = canvas.getBoundingClientRect();
   targetX = Math.floor((event.pageX - rect.left)/cellW);
   targetY = Math.floor((event.pageY - rect.top)/cellH);
-  console.log(targetX, targetY);
+  console.log("target ", targetX, targetY);
   update();
 }
 
