@@ -6,10 +6,10 @@ canvas.height = window.innerHeight*0.75;
 var context = canvas.getContext('2d')
 
 /// set parameters
-var cellW = 60;
-var cellH = 60;
-var rows = Math.floor(canvas.width/cellW);
-var columns = Math.floor(canvas.height/cellH);
+var rows = 25;
+var columns = 25;
+var cellW = Math.floor(canvas.width/rows);
+var cellH = Math.floor(canvas.height/columns);
 
 //simple way to draw line
 function draw_line(startX, startY, endX, endY){
