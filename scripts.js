@@ -9,8 +9,8 @@ var context = canvas.getContext('2d')
 /// set parameters
 var cellW = 60;
 var cellH = 60;
-var rows = Math.floor(canvas.width/cellW);
-var columns = Math.floor(canvas.height/cellH);
+var _height = Math.floor(canvas.width/cellW);
+var _width = Math.floor(canvas.height/cellH);
 
 //simple way to draw line
 function draw_line(startX, startY, endX, endY){
@@ -74,7 +74,7 @@ class Maze {
     }
   }
 
-  isInGrid(x, y) {
+  isInGrid(y, x) {
     return (x >= 0 && y >= 0 && x < this.width && y < this.height);
   }
 
@@ -98,7 +98,7 @@ class Maze {
       for (let i = 0; i < 4; ++i) {
         const cell_x = x + Dirs[i][0];
         const cell_y = y + Dirs[i][1];
-        if (this.isInGrid(cell_x, cell_y) && !visited[cell_y][cell_x])
+        if (this.isInGrid(cell_y, cell_x) && !visited[cell_y][cell_x])
           available_dirs.push(i);
       }
       if (available_dirs.length == 0) {
@@ -131,23 +131,23 @@ class Player{
   dfsPathfinderStart(){
     this.found = false;
     this.visited = [];
-    for(var i = 0; i<rows; i++){
+    for(var i = 0; i<_height; i++){
       var row = [];
-      for(var j = 0; j<columns; j++)
+      for(var j = 0; j<_width; j++)
         row.push(false);
       this.visited.push(row);
     }
 
     this.path =[
-      [rows-1, columns-1]
+      [_height-1, _width-1]
     ];
   }
 
   dfsPathfinderMakeStep(targetX, targetY) {
       if(this.path.length > 0 && !this.found) {
       const curr_pos = this.path[this.path.length -1];
-      const x = curr_pos[0];
-      const y = curr_pos[1];
+      const x = curr_pos[1];
+      const y = curr_pos[0];
       this.visited[y][x] = true;
 
       /// We found our target!
@@ -160,7 +160,7 @@ class Player{
       for(var i = 0; i<4; i++){
         const cell_x = x + Dirs[i][0];
         const cell_y = y + Dirs[i][1];
-        if(this.maze.isInGrid(cell_x, cell_y) && !this.visited[cell_y][cell_x] && !this.maze.maze[y][x].walls[i])
+        if(this.maze.isInGrid(cell_y, cell_x) && !this.visited[cell_y][cell_x] && !this.maze.maze[y][x].walls[i])
           available_dirs.push(i);
       }
 
@@ -185,18 +185,18 @@ class dfsPathfinder{
     	this.finish = false;
 		this.visited = [];
     	this.pathMatrix =[];
-    	for(var i = 0; i<rows; i++){
+    	for(var i = 0; i<_height; i++){
       		var visitedRow = [];
       		var pathRow = [];
-      		for(var j = 0; j<columns; j++){
+      		for(var j = 0; j<_width; j++){
         		visitedRow.push(false);
         		pathRow.push(0);
       		}
       	this.visited.push(visitedRow);
       	this.pathMatrix.push(pathRow);
-      	this.pathMatrix[start[0]][start[1]] = 1;
+      	this.pathMatrix[start[1]][start[0]] = 1;
       	this.path = [
-      		[start[0], start[1]
+      		[start[1], start[0]
       		]];
     	}
 	}
@@ -204,12 +204,12 @@ class dfsPathfinder{
 	getSearchStep(){
 	      if(this.path.length > 0 && !this.finish) {
 	      const curr_pos = this.path[this.path.length -1];
-	      const x = curr_pos[0];
-	      const y = curr_pos[1];
+	      const x = curr_pos[1];
+	      const y = curr_pos[0];
 	      this.visited[y][x] = true;
 
 	      /// We found our target!
-	      if(x === this.target[0] && y === this.target[1]){
+	      if(x === this.target[1] && y === this.target[0]){
 	        this.finish = true;
 	        return;
 	      }
@@ -238,8 +238,8 @@ class dfsPathfinder{
 }
 
 function drawPathState(pathMatrix){
-	for(var i = 0; i < rows; i++)
-		for(var j = 0; j< columns; j++)
+	for(var i = 0; i < _height; i++)
+		for(var j = 0; j< _width; j++)
 			if(pathMatrix[i][j]===1)
 			{
 				context.rect(i*cellW + cellW/4, j*cellH + cellH/4, 
@@ -262,7 +262,7 @@ function drawEverything(maze, player){
 
 window.onload = function(){
   canvas.addEventListener("mousedown", onMouseClick, false);
-  maze = new Maze(rows, columns);
+  maze = new Maze(_height, _width);
   maze.dfsGenerator();
   maze.draw();
   player = new Player(maze);
