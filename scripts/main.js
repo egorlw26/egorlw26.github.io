@@ -7,8 +7,8 @@ var canvasOffset = 1;
 var context = canvas.getContext('2d')
 
 /// set parameters
-var cellW = 60;
-var cellH = 60;
+var rows = 25;
+var columns = 25;
 var _height = Math.floor(canvas.width/cellW);
 var _width = Math.floor(canvas.height/cellH);
 

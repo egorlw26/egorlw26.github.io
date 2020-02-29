@@ -1,31 +1,52 @@
-<!DOCTYPE html>
-
 <html>
-<head>
-	<title>PACMAN BAS DELIKATNYI VERSION 0.1</title>
-</head>
+  <head>
+    <title>PACMAN BAS DELIKATNYI VERSION 0.1</title>    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+    <script src="https://rawgit.com/andreruffert/rangeslider.js/develop/dist/rangeslider.min.js"> </script>
+    
+    <script type="text/javascript" src="scripts/utils.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css"/>
+  </head>
 
-<style>
-	.content {
-		width: 100%;
-		height: 100%;
-	}
-
-	body{
-		margin: auto;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		padding-top: 12.5vh;
-		padding-left: 12.5vw;
-		background-color: #02041c;
-	}
-</style>
-
-<body>
-	<canvas id='canvas'></canvas>
-	<script type="text/javascript" src="scripts.js"></script>
-</body>
+  <body>
+    <div class = "maze">
+      <div class = "title">
+      Maze
+      </div>
+      <canvas id='canvas'/>
+    </div>
+    <div class = "stats">
+      <div class = "title">
+      Statistics
+      </div>
+      <div class = "stat">
+        <label class = "text" id="memory_stat">Memory</label>
+      </div>
+      <div class = "stat">
+        <label class = "text" id="time_stat">Time</label>
+      </div>
+      <div class = "stat">
+        <label class = "text" id="steps_stat">Steps</label>
+      </div>
+    </div>
+    <div class = "configurations">
+      <div class = "title">
+      Configurations
+      </div>
+      <div class="range">
+        <label class = "text" for="width_range"> Width </label>
+        <input type="range" min="10" max="100" value = "25" step="1" id = "width_range"/>
+        <label class = "text" id = "width_range_value">25</label>
+      </div>
+      <div class="range">
+        <label class = "text" for="height_range"> Height </label>
+        <input type="range" min="10" max="100" value = "25" step="1" id = "height_range"/>
+        <label class = "text" id = "height_range_value">25</label>
+      </div>
+    </div>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/utils.js"></script>
+  </body>
 </html>
