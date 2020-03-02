@@ -24,7 +24,6 @@ class dfsMazeGenerator {
       for(var i = 0; i<neighbours.length; ++i)
         if(!visited[neighbours[i][0]][neighbours[i][1]])
           availableNeighbours.push(neighbours[i]);
-      console.log("Neigh: ", availableNeighbours);
 
       if(availableNeighbours.length == 0)
       {
@@ -33,7 +32,6 @@ class dfsMazeGenerator {
       }
 
       var next = randomChoice(availableNeighbours);
-      console.log("Next: ", next);
 
       stack.push(next);
       this.maze.breakWallBetweenTwoCells(curr_pos, next);

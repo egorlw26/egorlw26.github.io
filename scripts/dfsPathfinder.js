@@ -4,7 +4,7 @@ class dfsPathfinder{
     	this.target = target;
     	this.maze = maze;
     	this.finish = false;
-		this.visited = [];
+			this.visited = [];
     	this.pathMatrix =[];
     	for(var i = 0; i<this.maze.height; i++){
       		var visitedRow = [];

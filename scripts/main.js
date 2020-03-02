@@ -33,7 +33,7 @@ function onMouseClick(event){
   targetX = Math.floor((event.pageX - rect.left)/cellW);
   targetY = Math.floor((event.pageY - rect.top)/cellH);
   console.log("Target :", targetY, targetX);
-  pathfinder = new dfsPathfinder(maze, player.position, [targetY, targetX]);
+  pathfinder = new leePathfinder(maze, player.position, [targetY, targetX]);
   update();
 }
 
@@ -43,8 +43,10 @@ function update(){
   drawEverything(maze, pathfinder.pathMatrix);
   if(pathfinder.finish === true)
   {
-    console.log("STOP");
-    player.position = [targetY, targetX];
+    console.log("PATH FOUND, START PLAYER MOVING");
+		player.setPath(pathfinder.path);
+		player.makeStepOnPath();
+		player.position = [targetY, targetX];
     return;
   }
   setTimeout(update, 40);

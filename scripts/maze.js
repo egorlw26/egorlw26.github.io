@@ -55,11 +55,6 @@ class Maze {
         dir_id = i;
         break;
       }
-    console.log("f", firstCell);
-    console.log("s", secondCell);
-    console.log("dir id", dir_id);
-    console.log("dir", dir);
-    console.log("dirs[dir_id]", Dirs[dir_id]);
     this.maze[firstCell[0]][firstCell[1]].walls[(dir_id)%4] = false;
       this.maze[secondCell[0]][secondCell[1]].walls[(dir_id + 2) % 4] = false;
   }
