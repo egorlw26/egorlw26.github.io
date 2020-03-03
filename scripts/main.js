@@ -26,6 +26,7 @@ window.onload = function(){
   mazeGenerator.generate();
   maze.draw();
   player = new Player();
+	setTimeout(drawPlayer, 100, player);
 }
 
 function onMouseClick(event){
@@ -39,16 +40,21 @@ function onMouseClick(event){
 
 function update(){
   context.clearRect(0, 0, canvas.width, canvas.height);
-  drawEverything(maze, pathfinder.pathMatrix, player);
+  maze.draw();
   if(pathfinder.finish == false){
+		drawPathState(pathfinder.pathMatrix);
 		pathfinder.getSearchStep();
 		player.setPath(pathfinder.path);
+		drawPlayer(player);
 	}
 	else {
+		drawPlayerPath(player.path);
 		player.makeStepOnPath();
+		drawPlayer(player);
 		if(player.position[0] == targetY && player.position[1] == targetX){
 			context.clearRect(0, 0, canvas.width, canvas.height);
-			drawEverything(maze, pathfinder.pathMatrix, player);
+			maze.draw();
+			drawPlayer(player);
 			return;
 		}
   }

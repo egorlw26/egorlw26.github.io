@@ -1,6 +1,8 @@
 class Player{
   constructor(){
     this.position = [0, 0];
+		this.image = new Image();
+		this.image.src = "sources/bedolaga.png";
   }
 	
 	setPath(path){
@@ -13,6 +15,5 @@ class Player{
 			return;
 		}
 		this.path = this.path.slice(1);
-		console.log("position: ", this.position);
 	}
 }
