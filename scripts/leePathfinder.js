@@ -59,6 +59,7 @@ class leePathfinder {
 			}
 			this.path.push([this.start[0], this.start[1]]);
 			this.path.reverse();
+			this.path.push(this.target);
 			this.finish = true;
 			return;
 		}

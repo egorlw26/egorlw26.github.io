@@ -36,7 +36,14 @@ function drawPathState(pathMatrix){
       }
 }
 
-function drawEverything(maze, pathMatrix){
+function drawPlayer(player){
+	var image = new Image();
+	image.src = "sources/bedolaga.png";
+	context.drawImage(image, player.position[1]*cellW, player.position[0]*cellH, cellW, cellH);
+}
+
+function drawEverything(maze, pathMatrix, player){
   maze.draw();
   drawPathState(pathMatrix);
+	drawPlayer(player);
 }

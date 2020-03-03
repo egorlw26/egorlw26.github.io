@@ -9,9 +9,10 @@ class Player{
 	
 	makeStepOnPath(){
 		this.position = this.path[0];
+		if(this.path.length == 1){
+			return;
+		}
 		this.path = this.path.slice(1);
-		console.log(this.path);
 		console.log("position: ", this.position);
-		setTimeout(this.makeStepOnPath, 40);
 	}
 }

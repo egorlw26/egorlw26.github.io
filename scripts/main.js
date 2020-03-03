@@ -39,15 +39,18 @@ function onMouseClick(event){
 
 function update(){
   context.clearRect(0, 0, canvas.width, canvas.height);
-  pathfinder.getSearchStep();
-  drawEverything(maze, pathfinder.pathMatrix);
-  if(pathfinder.finish === true)
-  {
-    console.log("PATH FOUND, START PLAYER MOVING");
+  drawEverything(maze, pathfinder.pathMatrix, player);
+  if(pathfinder.finish == false){
+		pathfinder.getSearchStep();
 		player.setPath(pathfinder.path);
+	}
+	else {
 		player.makeStepOnPath();
-		player.position = [targetY, targetX];
-    return;
+		if(player.position[0] == targetY && player.position[1] == targetX){
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			drawEverything(maze, pathfinder.pathMatrix, player);
+			return;
+		}
   }
-  setTimeout(update, 40);
+  setTimeout(update, 80);
 }
