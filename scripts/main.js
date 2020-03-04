@@ -15,8 +15,7 @@ var _width = Math.floor(canvas.width/cellW); //x
 var maze;
 var pathfinder;
 var player;
-var targetX;
-var targetY;
+var target;
 
 window.onload = function(){
   console.log("Height :", _height, "Width: ", _width)
@@ -27,14 +26,17 @@ window.onload = function(){
   maze.draw();
   player = new Player();
 	setTimeout(drawPlayer, 100, player);
+  fill_configurations();
 }
 
 function onMouseClick(event){
+  if (!pathfinder)
+    return;
   var rect = canvas.getBoundingClientRect();
-  targetX = Math.floor((event.pageX - rect.left)/cellW);
-  targetY = Math.floor((event.pageY - rect.top)/cellH);
-  console.log("Target :", targetY, targetX);
-  pathfinder = new leePathfinder(maze, player.position, [targetY, targetX]);
+  target = [Math.floor((event.pageY - rect.top)/cellH),
+            Math.floor((event.pageX - rect.left)/cellW)];
+  console.log("Target :", target);
+  pathfinder.reset(player.position, target);
   update();
 }
 
@@ -51,7 +53,7 @@ function update(){
 		drawPlayerPath(player.path);
 		player.makeStepOnPath();
 		drawPlayer(player);
-		if(player.position[0] == targetY && player.position[1] == targetX){
+		if(player.position === target){
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			maze.draw();
 			drawPlayer(player);

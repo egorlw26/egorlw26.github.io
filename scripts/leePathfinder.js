@@ -1,9 +1,13 @@
 class leePathfinder {
 	constructor(maze, start, target){
-		this.start = start;
-		this.target = target;
 		this.maze = maze;
-		this.finish = false;
+		this.reset(start, target);
+	}
+	
+  reset(start, target) {
+    this.start = start;
+		this.target = target;
+    this.finish = false;
     this.pathMatrix = [];
     for (let i = 0; i < this.maze.height; ++i) {
       var row = [];
@@ -16,8 +20,8 @@ class leePathfinder {
     ];
     this.pathMatrix[this.start[0]][this.start[1]] = 1;
 		this.path = [];
-	}
-	
+  }
+  
 	getSearchStep(){
     if(this.queue.length > 0 && !this.finish){
       var front = this.queue.shift();

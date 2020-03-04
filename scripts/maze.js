@@ -1,3 +1,10 @@
+const Dirs = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1]
+];
+
 class Cell {
   constructor(type = 0) {
     this.type = type;
