@@ -1,25 +1,12 @@
-class leePathfinder {
+class leePathfinder extends Pathfinder{
 	constructor(maze, start, target){
-		this.maze = maze;
-		this.reset(start, target);
+    super(maze, start, target);
+		this.queue = [this.start];
 	}
-	
+  
   reset(start, target) {
-    this.start = start;
-		this.target = target;
-    this.finish = false;
-    this.pathMatrix = [];
-    for (let i = 0; i < this.maze.height; ++i) {
-      var row = [];
-      for (let j = 0; j < this.maze.width; ++j)
-        row.push(0);
-      this.pathMatrix.push(row);
-    }
-		  this.queue = [
-      [this.start[0], this.start[1]]
-    ];
-    this.pathMatrix[this.start[0]][this.start[1]] = 1;
-		this.path = [];
+    super.reset(start, target);
+    this.queue = [this.start]
   }
   
 	getSearchStep(){

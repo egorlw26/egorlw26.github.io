@@ -17,6 +17,8 @@ var pathfinder;
 var player;
 var target;
 
+var update_timeout;
+
 window.onload = function(){
   console.log("Height :", _height, "Width: ", _width)
   canvas.addEventListener("mousedown", onMouseClick, false);
@@ -27,6 +29,7 @@ window.onload = function(){
   player = new Player();
 	setTimeout(drawPlayer, 100, player);
   fill_configurations();
+  isRunning = false;
 }
 
 function onMouseClick(event){
@@ -37,6 +40,7 @@ function onMouseClick(event){
             Math.floor((event.pageX - rect.left)/cellW)];
   console.log("Target :", target);
   pathfinder.reset(player.position, target);
+  clearTimeout(update_timeout);
   update();
 }
 
@@ -60,5 +64,5 @@ function update(){
 			return;
 		}
   }
-  setTimeout(update, 80);
+  update_timeout = setTimeout(update, 80);
 }

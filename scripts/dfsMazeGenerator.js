@@ -36,5 +36,5 @@ class dfsMazeGenerator {
       stack.push(next);
       this.maze.breakWallBetweenTwoCells(curr_pos, next);
     }
-}
+  }
 }
