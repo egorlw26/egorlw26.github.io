@@ -3,6 +3,7 @@ class Player{
     this.position = [0, 0];
 		this.image = new Image();
 		this.image.src = "sources/bedolaga.png";
+    this.score = 0;
   }
 	
 	setPath(path){
@@ -11,7 +12,7 @@ class Player{
 	
 	makeStepOnPath(){
 		this.position = this.path[0];
-		if(this.path.length == 1){
+		if(this.path.length === 1){
 			return;
 		}
 		this.path = this.path.slice(1);

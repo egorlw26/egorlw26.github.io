@@ -25,7 +25,7 @@ window.onload = function(){
   maze = new Maze(_width, _height);
   var mazeGenerator = new dfsMazeGenerator(maze);
   mazeGenerator.generate();
-  maze.draw();
+  draw_maze(maze);
   player = new Player();
 	setTimeout(drawPlayer, 100, player);
   fill_configurations();
@@ -40,29 +40,23 @@ function onMouseClick(event){
             Math.floor((event.pageX - rect.left)/cellW)];
   console.log("Target :", target);
   pathfinder.reset(player.position, target);
-  clearTimeout(update_timeout);
+  refresh();
   update();
 }
 
 function update(){
   context.clearRect(0, 0, canvas.width, canvas.height);
-  maze.draw();
+  draw_maze(maze);
   if(pathfinder.finish == false){
 		drawPathState(pathfinder.pathMatrix);
 		pathfinder.getSearchStep();
-		player.setPath(pathfinder.path);
 		drawPlayer(player);
+    player.setPath(pathfinder.path);
 	}
 	else {
 		drawPlayerPath(player.path);
 		player.makeStepOnPath();
 		drawPlayer(player);
-		if(player.position === target){
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			maze.draw();
-			drawPlayer(player);
-			return;
-		}
   }
   update_timeout = setTimeout(update, 80);
 }

@@ -13,9 +13,7 @@ function onChecked() {
       default: 
         pathfinder = new dfsPathfinder(maze, player.position, target);
     }
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  maze.draw();
-  drawPlayer(player);
+  refresh();
 }
 
 function fill_configurations() {
