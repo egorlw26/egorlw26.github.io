@@ -12,7 +12,6 @@ class dfsPathfinder extends Pathfinder{
 	getSearchStep(){
     if(this.path.length > 0 && !this.finish) {
       const curr_pos = this.path[this.path.length -1];
-      console.log("Curr pos: ", curr_pos);
       const y = curr_pos[0];
       const x = curr_pos[1];
       this.visited[y][x] = true;

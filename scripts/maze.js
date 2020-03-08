@@ -5,24 +5,18 @@ const Dirs = [
   [0, -1]
 ];
 
+const CellType = {
+  "Empty"       : 0,
+  "Food"        : 1,
+  "SpecialFood" : 2
+}
+
 class Cell {
-  constructor(type = 0) {
+  constructor(y, x, type) {
     this.type = type;
     this.walls = [true, true, true, true];
-  }
-
-  draw(x, y) {
-    context.strokeStyle = '#2b3cff'
-    for (let i = 0; i < 4; ++i) {
-      const next_x = x + Dirs[(i + 1) % 4][0];
-      const next_y = y + Dirs[(i + 1) % 4][1];
-      if (this.walls[i]) {
-        draw_line(canvasOffset + x * cellW, canvasOffset + y * cellH,
-          canvasOffset + next_x * cellW, canvasOffset + next_y * cellH);
-      }
-      x = next_x;
-      y = next_y;
-    }
+    this.x = x;
+    this.y = y;
   }
 }
 
@@ -38,7 +32,7 @@ class Maze {
     for (let y = 0; y < this.height; ++y) {
       var row = [];
       for (let x = 0; x < this.width; ++x)
-        row.push(new Cell(0));
+        row.push(new Cell(y, x, CellType.Food));
       this.maze.push(row);
     }
   }
@@ -79,10 +73,5 @@ class Maze {
 
   isInGrid(y, x) {
     return (x >= 0 && y >= 0 && x < this.width && y < this.height);
-  }
-  draw() {
-    for (let y = 0; y < this.height; ++y)
-      for (let x = 0; x < this.width; ++x)
-        this.maze[y][x].draw(x, y);
   }
 }
