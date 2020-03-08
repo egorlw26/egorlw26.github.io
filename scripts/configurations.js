@@ -1,16 +1,19 @@
-var available_pathfinders = ["DFSPathfinder", "LeePathfinder"]
+var available_pathfinders = ["DFSPathfinder", "LeePathfinder", "AStarPathfinder"]
 
 function onChecked() {
     if (!this.checked)
       return;
     switch(this.value) {
-      case "DFSPathfinder": 
+      case "DFSPathfinder":
         pathfinder = new dfsPathfinder(maze, player.position, target);
         break;
-      case "LeePathfinder": 
+      case "LeePathfinder":
         pathfinder = new leePathfinder(maze, player.position, target);
         break;
-      default: 
+      case "AStarPathfinder":
+        pathfinder = new AStarPathfinder(maze, player.position, target);
+        break;
+      default:
         pathfinder = new dfsPathfinder(maze, player.position, target);
     }
   context.clearRect(0, 0, canvas.width, canvas.height);
