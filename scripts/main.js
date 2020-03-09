@@ -63,6 +63,8 @@ function update(){
   if(pathfinder.finish == false){
 		drawPathState(pathfinder.pathMatrix);
 		pathfinder.getSearchStep();
+    if(pathfinder.finish == true)
+      player.setPath(pathfinder.path);
 		drawPlayer(player);
     player.setPath(pathfinder.path);
 	}

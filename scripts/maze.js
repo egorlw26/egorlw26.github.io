@@ -48,6 +48,17 @@ class Maze {
       return neighbours;
   }
 
+  isWallBetweenTwoCells(firstCell, secondCell){
+    var dir = [secondCell[0] - firstCell[0], secondCell[1] - firstCell[1]];
+    var dir_id = -1;
+    for(var i = 0; i<4; ++i)
+      if(Dirs[i][0] == dir[1] && Dirs[i][1] == dir[0]){
+        dir_id = i;
+        break;
+      }
+    return this.maze[firstCell[0]][firstCell[1]].walls[(dir_id)%4];
+  }
+
   breakWallBetweenTwoCells(firstCell, secondCell){
     var dir = [secondCell[0] - firstCell[0], secondCell[1] - firstCell[1]];
     var dir_id = -1;
