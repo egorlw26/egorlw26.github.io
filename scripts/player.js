@@ -1,9 +1,8 @@
 class Player{
-  constructor(){
-    this.position = [0, 0];
+  constructor(position, src){
+    this.position = position;
 		this.image = new Image();
-		this.image.src = "sources/bedolaga.png";
-    this.score = 0;
+		this.image.src = src;
   }
 	
 	setPath(path){

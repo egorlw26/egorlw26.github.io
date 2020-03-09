@@ -8,7 +8,7 @@ const Dirs = [
 const CellType = {
   "Empty"       : 0,
   "Food"        : 1,
-  "SpecialFood" : 2
+  "SpecialFood" : 2,
 }
 
 class Cell {
@@ -56,8 +56,20 @@ class Maze {
         dir_id = i;
         break;
       }
-    this.maze[firstCell[0]][firstCell[1]].walls[(dir_id)%4] = false;
-      this.maze[secondCell[0]][secondCell[1]].walls[(dir_id + 2) % 4] = false;
+    this.maze[firstCell[0]][firstCell[1]].walls[dir_id % 4] = false;
+    this.maze[secondCell[0]][secondCell[1]].walls[(dir_id + 2) % 4] = false;
+  }
+  
+  buildWallBetweenTwoCells(firstCell, secondCell){
+    var dir = [secondCell[0] - firstCell[0], secondCell[1] - firstCell[1]];
+    var dir_id = -1;
+    for(var i = 0; i<4; ++i)
+      if(Dirs[i][0] == dir[1] && Dirs[i][1] == dir[0]){
+        dir_id = i;
+        break;
+      }
+    this.maze[firstCell[0]][firstCell[1]].walls[dir_id % 4] = true;
+    this.maze[secondCell[0]][secondCell[1]].walls[(dir_id + 2) % 4] = true;
   }
 
   isInGrid(y, x) {

@@ -19,17 +19,30 @@ var target;
 
 var update_timeout;
 
+var pacman_src = "sources/bedolaga.png";
+var ghost_src = "sources/ghost.png";
+
+var game;
+
 window.onload = function(){
   console.log("Height :", _height, "Width: ", _width)
-  canvas.addEventListener("mousedown", onMouseClick, false);
+  //canvas.addEventListener("mousedown", onMouseClick, false);
   maze = new Maze(_width, _height);
   var mazeGenerator = new dfsMazeGenerator(maze);
   mazeGenerator.generate();
-  draw_maze(maze);
-  player = new Player();
-	setTimeout(drawPlayer, 100, player);
-  fill_configurations();
-  isRunning = false;
+  makeCyclic(maze);
+  game = new Game(maze);
+  //player = new Player([0,0], pacman_src);
+	//setTimeout(drawPlayer, 100, player);
+  //fill_configurations();
+  runGame();
+}
+
+function runGame() {
+  drawGame(game);
+  game.tick();
+  updateGameStats(game);
+  setTimeout(runGame, 250);
 }
 
 function onMouseClick(event){

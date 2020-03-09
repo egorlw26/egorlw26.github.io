@@ -18,18 +18,18 @@ function draw_circle(x, y, radius, fill = true) {
 
 
 // draw maze
-function draw_maze(maze) {
+function drawMaze(maze) {
   for (let y = 0; y < maze.height; ++y)
     for (let x = 0; x < maze.width; ++x)
-      draw_maze_cell(maze.maze[y][x]);
+      drawMazeCell(maze.maze[y][x]);
 }
 
-function draw_maze_cell(cell) {
-  draw_cell_walls(cell);
-  draw_cell_type(cell);
+function drawMazeCell(cell) {
+  drawCellWalls(cell);
+  drawCellType(cell);
 }
 
-function draw_cell_walls(cell) {
+function drawCellWalls(cell) {
   var x = cell.x;
   var y = cell.y;
   for (let i = 0; i < 4; ++i) {
@@ -47,7 +47,7 @@ function draw_cell_walls(cell) {
   }
 }
 
-function draw_cell_type(cell) {
+function drawCellType(cell) {
   switch (cell.type) {
     case CellType.Empty :
       break;
@@ -102,4 +102,11 @@ function refresh() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   draw_maze(maze);
   drawPlayer(player);
+}
+
+function drawGame(game) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawMaze(game.maze);
+  drawPlayer(game.ghost);
+  drawPlayer(game.pacman);
 }

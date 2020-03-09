@@ -38,3 +38,18 @@ class dfsMazeGenerator {
     }
   }
 }
+
+function makeCyclic(maze) {
+  for (let y = 0; y < maze.height; ++y)
+    for (let x = 0; x < maze.width; ++x) {
+      var cell = maze.maze[y][x];
+      var neighbours = maze.getNeighbours(y, x);
+      var wall_cnt = 0;
+      for (let i = 0; i < cell.walls.length; ++i)
+        wall_cnt += cell.walls[i];
+      if (wall_cnt === 3) {
+        const next = randomChoice(neighbours);
+        maze.breakWallBetweenTwoCells([y, x], next);
+      }
+    }
+}

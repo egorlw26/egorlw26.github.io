@@ -10,6 +10,8 @@ class leePathfinder extends Pathfinder{
   }
   
 	getSearchStep(){
+    if (this.queue.length == 0)
+      console.log('queue');
     if(this.queue.length > 0 && !this.finish){
       var front = this.queue.shift();
       var x = front[1];
@@ -22,14 +24,13 @@ class leePathfinder extends Pathfinder{
         const cell_y = y + Dirs[i][1];
         if (this.maze.isInGrid(cell_y, cell_x) &&
           !this.maze.maze[y][x].walls[i] &&
-          this.pathMatrix[cell_y][cell_x] === 0) {
+          this.pathMatrix[cell_y][cell_x] == 0) {
           this.pathMatrix[cell_y][cell_x] = this.pathMatrix[y][x] + 1;
           this.queue.push([cell_y, cell_x]);
         }
       }
     }
-		if(this.finish)
-		{
+		if(this.finish) {
 			var x = this.target[1];
 			var y = this.target[0];
 			var curr_val = this.pathMatrix[y][x];
@@ -50,9 +51,13 @@ class leePathfinder extends Pathfinder{
 			}
 			this.path.push([this.start[0], this.start[1]]);
 			this.path.reverse();
-			this.path.push(this.target);
 			this.finish = true;
 			return;
 		}
+    else if (this.queue.length == 0) {
+      this.path = [];
+      this.finish = true;
+      return;
+    }
 	}
-  }
+}
