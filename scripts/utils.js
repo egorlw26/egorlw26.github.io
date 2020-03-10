@@ -11,17 +11,6 @@ function areCellsEqual(firstCell, secondCell){
   return (firstCell[0] == secondCell[0] && firstCell[1] == secondCell[1]);
 }
 
-//used in AStarPathfinder, but may be used in other places, so left it here
-class PriorityQElement{
-  constructor(element, h, parent){
-    this.element = element;
-		this.h = h;
-		this.g = parent.g+1;
-    this.priority = this.h+ this.g;
-    this.parent = parent;
-  }
-}
-
 class PriorityQueue{
   constructor(){
       this.elements = [];

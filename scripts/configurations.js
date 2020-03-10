@@ -1,4 +1,4 @@
-var available_pathfinders = ["DFSPathfinder", "LeePathfinder", "AStarPathfinder"]
+var available_pathfinders = ["DFSPathfinder", "LeePathfinder", "AStarPathfinder", "FirstBestPathfinder"]
 
 function onChecked() {
     if (!this.checked)
@@ -12,6 +12,9 @@ function onChecked() {
         break;
       case "AStarPathfinder":
         pathfinder = new AStarPathfinder(maze, player.position, target);
+        break;
+      case "FirstBestPathfinder":
+        pathfinder = new FirstBestPathfinder(maze, player.position, target);
         break;
       default:
         pathfinder = new dfsPathfinder(maze, player.position, target);

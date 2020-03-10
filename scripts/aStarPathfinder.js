@@ -1,3 +1,13 @@
+class AStarQElement{
+	constructor(element, h, parent){
+    this.element = element;
+		this.h = h;
+		this.g = parent.g+1;
+    this.priority = this.h+ this.g;
+    this.parent = parent;
+  }
+}
+
 class AStarPathfinder extends Pathfinder{
 	constructor(maze, start, target) {
     super(maze, start, target);
@@ -6,7 +16,6 @@ class AStarPathfinder extends Pathfinder{
 
 	reset(start, target){
 		super.reset(start, target);
-		this.path = [];
 		this.preparate();
 	}
 
@@ -14,7 +23,7 @@ class AStarPathfinder extends Pathfinder{
 		this.open = new PriorityQueue();
 		this.closed = [];
 
-		var startEl = new PriorityQElement(this.start, 0, 0);
+		var startEl = new AStarQElement(this.start, 0, 0);
 		startEl.g = 0;
 		startEl.priority = 0;
 		startEl.parent = startEl;
@@ -42,7 +51,7 @@ class AStarPathfinder extends Pathfinder{
 				this.pathMatrix[neigh[0]][neigh[1]] =
 					this.pathMatrix[currCell.element[0]][currCell.element[1]] + 1;
 				var h = this.calculateH(neigh);
-				var element = new PriorityQElement(neigh, h, currCell);
+				var element = new AStarQElement(neigh, h, currCell);
 
 				//target found
 				if(areCellsEqual(neigh, this.target)) {
