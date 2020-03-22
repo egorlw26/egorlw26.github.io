@@ -3,6 +3,7 @@
 function draw_line(startX, startY, endX, endY, strokeStyle){
   context.beginPath();
   context.strokeStyle = strokeStyle;
+  context.lineWidth = 3;
   context.moveTo(startX, startY);
   context.lineTo(endX, endY);
   context.stroke();
@@ -36,11 +37,11 @@ function draw_cell_walls(cell) {
     const next_x = x + Dirs[(i + 1) % 4][0];
     const next_y = y + Dirs[(i + 1) % 4][1];
     if (cell.walls[i]) {
-      draw_line(canvasOffset + x * cellW, 
+      draw_line(canvasOffset + x * cellW,
                 canvasOffset + y * cellH,
-                canvasOffset + next_x * cellW, 
+                canvasOffset + next_x * cellW,
                 canvasOffset + next_y * cellH,
-                '#2b3cff');
+                '#b8d5d6');
     }
     x = next_x;
     y = next_y;
@@ -74,7 +75,7 @@ function drawPathState(pathMatrix){
         ${Math.floor(255 - 10* pathMatrix[i][j])},
         ${Math.floor(0 + 5 *pathMatrix[i][j])},
         ${Math.floor(255 - 3*pathMatrix[i][j])})`;
-        context.fillRect(j*cellW + cellW*0.25, i*cellH +cellH*0.25, 
+        context.fillRect(j*cellW + cellW*0.25, i*cellH +cellH*0.25,
           cellW*0.5, cellH*0.5);
       }
 }

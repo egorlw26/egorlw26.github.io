@@ -4,13 +4,13 @@
 }
 
 .title {
-    color: red;
+    color: #b8d5d6;
     font-size: 175%;
     text-align: center;
 }
 
 .text {
-    color: red;
+    color: #b8d5d6;
     font-size: 150%;
     text-align: left;
 }
@@ -22,13 +22,27 @@
     grid-row-end: 3;
 }
 .stats {
+    padding-left: 5%;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
 }
 
+.stats .title{
+  padding-bottom: 5%;
+}
+
+.configurations .title, .stats .title{
+  text-decoration: underline;
+}
+
+.stat{
+  text-align: center;
+}
+
 .configurations {
+    padding-left: 5%;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;
@@ -36,6 +50,8 @@
 }
 
 .game-stats {
+  padding-left: 5%;
+  padding-top: 20%;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
@@ -49,12 +65,13 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    padding-top: 5%;
-    padding-left: 5%;
-    background-color:  #02041c;
+    padding-top: 15vh;
+    padding-left: 7vw;
+    background-color:  #240104;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 100px;
+    grid-row-gap: 10%;
 }
 
 .unorderedlist {

@@ -1,8 +1,8 @@
 var canvas = document.getElementById('canvas');
 
-canvas.width = window.innerWidth*0.75;
-canvas.height = window.innerHeight*0.75;
-var canvasOffset = 1;
+canvas.width = window.innerWidth*0.76;
+canvas.height = window.innerHeight*0.76;
+var canvasOffset = 2;
 
 var context = canvas.getContext('2d');
 
