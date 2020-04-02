@@ -11,6 +11,7 @@ class leePathfinder extends Pathfinder{
   
 	getSearchStep(){
     if(this.queue.length > 0 && !this.finish){
+      ++this.search_steps;
       var front = this.queue.shift();
       var x = front[1];
       var y = front[0];

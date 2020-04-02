@@ -43,3 +43,9 @@ class PriorityQueue{
     return this.elements.length == 0;
   }
 }
+
+function updateFindStatus() {
+  $('#steps_stat').text("Steps: " + pathfinder.search_steps);
+  $('#memory_stat').text("Memory: " + pathfinder.memory + "kb");
+  $('#time_stat').text("Time: " + pathfinder.time + "ms");
+}

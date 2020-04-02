@@ -33,7 +33,7 @@ class AStarPathfinder extends Pathfinder{
 
 	getSearchStep(){
 		if(!this.open.isEmpty() && !this.finish){
-
+      ++this.search_steps;
 			var currCell = this.open.shift();
 
 			this.pathMatrix[currCell.element[0]][currCell.element[1]] =

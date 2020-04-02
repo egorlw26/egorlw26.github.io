@@ -31,6 +31,7 @@ class FirstBestPathfinder extends Pathfinder{
 
 	getSearchStep(){
 		if(!this.open.isEmpty() && !this.finish){
+      ++this.search_steps;
 
 			var currCell = this.open.shift();
 

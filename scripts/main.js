@@ -40,11 +40,14 @@ function onMouseClick(event){
             Math.floor((event.pageX - rect.left)/cellW)];
   console.log("Target :", target);
   pathfinder.reset(player.position, target);
+  pathfinder.calculateStats();
+  console.log(pathfinder.memory);
   refresh();
   update();
 }
 
 function update(){
+  updateFindStatus();
   context.clearRect(0, 0, canvas.width, canvas.height);
   draw_maze(maze);
   if(pathfinder.finish == false){

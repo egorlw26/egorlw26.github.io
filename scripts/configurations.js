@@ -20,6 +20,7 @@ function onChecked() {
         pathfinder = new dfsPathfinder(maze, player.position, target);
     }
   refresh();
+  updateFindStatus();
 }
 
 function fill_configurations() {
