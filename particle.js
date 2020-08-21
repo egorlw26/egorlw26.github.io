@@ -1,11 +1,28 @@
 class Particle
 {
-    constructor()
+    constructor(angleIncreaseStep)
     {
         this.pos = createVector(width/2, height/2);
         this.rays = [];
+        this.angleIncreaseStep = angleIncreaseStep;
 
-        for(let angle = 0; angle < 360; angle += 2)
+        this.fillRays();       
+    }
+
+    updateIncreaseStep(nIncreaseStep)
+    {
+        if(this.angleIncreaseStep != nIncreaseStep)
+        {
+            this.angleIncreaseStep = nIncreaseStep;
+            this.fillRays();
+        }
+        
+    }
+
+    fillRays()
+    {
+        this.rays = [];
+        for(let angle = 0; angle < 360; angle += this.angleIncreaseStep)
         {
             this.rays.push(new Ray(this.pos, 
                 Math.cos(radians(angle)), Math.sin(radians(angle))));
