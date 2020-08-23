@@ -1,3 +1,4 @@
+let canv;
 let p;
 let testRay;
 let segments;
@@ -10,21 +11,22 @@ let reflSliderText;
 
 function setup()
 {
-    createCanvas(400, 400);
+    canv = createCanvas(windowWidth*0.75, windowHeight*0.75);
+    canv.position(windowWidth/2 - canv.width/2, windowHeight/2 - canv.height/2);
 
     viewAngleSlider = createSlider(0, 360, 45, 1);
-    viewAngleSlider.position(20, 20);
+    viewAngleSlider.position(canv.x + 20, canv.y + 20);
     viewAngleSlider.style('width', '120px');
 
     numberOfReflectionsSlider = createSlider(0, 20, 0, 1);
-    numberOfReflectionsSlider.position(20, 40);
+    numberOfReflectionsSlider.position(canv.x + 20, canv.y + 40);
     numberOfReflectionsSlider.style('width', '120px');
 
     rotationButtonLeft = createButton("LEFT");
-    rotationButtonLeft.position(width/2 - rotationButtonLeft.width, height - 20);
+    rotationButtonLeft.position(canv.x + width/2 - rotationButtonLeft.width, canv.y + height - 40);
 
     rotationButtonRight = createButton("RIGHT");
-    rotationButtonRight.position(rotationButtonLeft.x + rotationButtonLeft.width, height - 20);
+    rotationButtonRight.position(rotationButtonLeft.x + rotationButtonLeft.width, rotationButtonLeft.y);
 
     p = new Particle(viewAngleSlider.value());
 
@@ -52,10 +54,10 @@ function draw()
     background(0);
 
     fill(255);
-    angleSliderText = text("view angle", viewAngleSlider.x + viewAngleSlider.width,
-     viewAngleSlider.y + 2);
-    reflSliderText = text("reflections", numberOfReflectionsSlider.x + 
-    numberOfReflectionsSlider.width, numberOfReflectionsSlider.y + 2);
+    angleSliderText = text("view angle", viewAngleSlider.x + viewAngleSlider.width - canv.x + 10,
+    viewAngleSlider.y - canv.y + 15);
+    reflSliderText = text("reflections", numberOfReflectionsSlider.x - canv.x + 
+    numberOfReflectionsSlider.width + 10, numberOfReflectionsSlider.y - canv.y + 15);
 
     for(let segment of segments)
         segment.show();
