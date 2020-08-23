@@ -1,31 +1,49 @@
 class Particle
 {
-    constructor(angleIncreaseStep)
+    constructor(viewAngle)
     {
         this.pos = createVector(width/2, height/2);
         this.rays = [];
-        this.angleIncreaseStep = angleIncreaseStep;
+        this.viewAngle = viewAngle;
+        this.startAngle = 0;
 
         this.fillRays();       
     }
 
-    updateIncreaseStep(nIncreaseStep)
+    updateViewAngle(nViewAngle)
     {
-        if(this.angleIncreaseStep != nIncreaseStep)
+        if(this.viewAngle != nViewAngle)
         {
-            this.angleIncreaseStep = nIncreaseStep;
+            this.viewAngle = nViewAngle;
             this.fillRays();
         }
         
     }
 
+    rotate(angle)
+    {
+        this.startAngle += angle;
+    }
+
     fillRays()
     {
         this.rays = [];
-        for(let angle = 0; angle < 360; angle += this.angleIncreaseStep)
+        for(let angle = this.startAngle; angle <= this.startAngle + this.viewAngle; angle += 1)
         {
             this.rays.push(new Ray(this.pos, 
                 Math.cos(radians(angle)), Math.sin(radians(angle))));
+        }
+    }
+
+    rayCasting(segments)
+    {
+        for(let ray of this.rays)
+        {
+            let pt = ray.nearestSegment(segments)[0];            
+            if(pt != null)
+            {
+                ray.stretchTo(pt.x, pt.y);                
+            }
         }
     }
 
@@ -33,6 +51,7 @@ class Particle
     {
         stroke(255);
         ellipse(this.pos.x, this.pos.y, 0, 0);
+        this.fillRays();
         for(let ray of this.rays)
             ray.show();
     }
